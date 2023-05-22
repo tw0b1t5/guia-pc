@@ -493,106 +493,106 @@ footer a {
     <section class="grid__col--span-4">
         <span class="text-subtitle-1">Semana 1</span>
         <ul>
-            <li><a href="/pages/semana-1/ejercicio-1.html">Ejercicio 1</a></li>
-            <li><a href="/pages/semana-1/ejercicio-2.html">Ejercicio 2</a></li>
-            <li><a href="/pages/semana-1/ejercicio-3.html">Ejercicio 3</a></li>
-            <li><a href="/pages/semana-1/ejercicio-4.html">Ejercicio 4</a></li>
-            <li><a href="/pages/semana-1/ejercicio-5.html">Ejercicio 5</a></li>
-            <li><a href="/pages/semana-1/ejercicio-6.html">Ejercicio 6</a></li>
-            <li><a href="/pages/semana-1/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/guia-pc/pages/semana-1/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/guia-pc/pages/semana-1/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/guia-pc/pages/semana-1/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/guia-pc/pages/semana-1/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/guia-pc/pages/semana-1/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/guia-pc/pages/semana-1/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/guia-pc/pages/semana-1/ejercicio-7.html">Ejercicio 7</a></li>
         </ul>
     </section>
     <section class="grid__col--span-4">
         <span class="text-subtitle-1">Semana 2</span>
         <ul>
-            <li><a href="/pages/semana-2/ejercicio-1.html">Ejercicio 1</a></li>
-            <li><a href="/pages/semana-2/ejercicio-2.html">Ejercicio 2</a></li>
-            <li><a href="/pages/semana-2/ejercicio-3.html">Ejercicio 3</a></li>
-            <li><a href="/pages/semana-2/ejercicio-4.html">Ejercicio 4</a></li>
-            <li><a href="/pages/semana-2/ejercicio-5.html">Ejercicio 5</a></li>
-            <li><a href="/pages/semana-2/ejercicio-6.html">Ejercicio 6</a></li>
-            <li><a href="/pages/semana-2/ejercicio-7.html">Ejercicio 7</a></li>
-            <li><a href="/pages/semana-2/ejercicio-8.html">Ejercicio 8</a></li>
-            <li><a href="/pages/semana-2/ejercicio-9.html">Ejercicio 9</a></li>
-            <li><a href="/pages/semana-2/ejercicio-10.html">Ejercicio 10</a></li>
-            <li><a href="/pages/semana-2/ejercicio-11.html">Ejercicio 11</a></li>
-            <li><a href="/pages/semana-2/ejercicio-12.html">Ejercicio 12</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-8.html">Ejercicio 8</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-9.html">Ejercicio 9</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-10.html">Ejercicio 10</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-11.html">Ejercicio 11</a></li>
+            <li><a href="/guia-pc/pages/semana-2/ejercicio-12.html">Ejercicio 12</a></li>
         </ul>
     </section>
     <section class="grid__col--span-4">
         <span class="text-subtitle-1">Semana 3</span>
         <ul>
-            <li><a href="/pages/semana-3/ejercicio-1.html">Ejercicio 1</a></li>
-            <li><a href="/pages/semana-3/ejercicio-2.html">Ejercicio 2</a></li>
-            <li><a href="/pages/semana-3/ejercicio-3.html">Ejercicio 3</a></li>
-            <li><a href="/pages/semana-3/ejercicio-4.html">Ejercicio 4</a></li>
-            <li><a href="/pages/semana-3/ejercicio-5.html">Ejercicio 5</a></li>
-            <li><a href="/pages/semana-3/ejercicio-6.html">Ejercicio 6</a></li>
-            <li><a href="/pages/semana-3/ejercicio-7.html">Ejercicio 7</a></li>
-            <li><a href="/pages/semana-3/ejercicio-8.html">Ejercicio 8</a></li>
-            <li><a href="/pages/semana-3/ejercicio-9.html">Ejercicio 9</a></li>
-            <li><a href="/pages/semana-3/ejercicio-10.html">Ejercicio 10</a></li>
-            <li><a href="/pages/semana-3/ejercicio-11.html">Ejercicio 11</a></li>
-            <li><a href="/pages/semana-3/ejercicio-12.html">Ejercicio 12</a></li>
-            <li><a href="/pages/semana-3/ejercicio-13.html">Ejercicio 13</a></li>
-            <li><a href="/pages/semana-3/ejercicio-14.html">Ejercicio 14</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-8.html">Ejercicio 8</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-9.html">Ejercicio 9</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-10.html">Ejercicio 10</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-11.html">Ejercicio 11</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-12.html">Ejercicio 12</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-13.html">Ejercicio 13</a></li>
+            <li><a href="/guia-pc/pages/semana-3/ejercicio-14.html">Ejercicio 14</a></li>
         </ul>
     </section>
     <section class="grid__col--span-4">
         <span class="text-subtitle-1">Semana 4</span>
         <ul>
-            <li><a href="/pages/semana-4/ejercicio-1.html">Ejercicio 1</a></li>
-            <li><a href="/pages/semana-4/ejercicio-2.html">Ejercicio 2</a></li>
-            <li><a href="/pages/semana-4/ejercicio-3.html">Ejercicio 3</a></li>
-            <li><a href="/pages/semana-4/ejercicio-4.html">Ejercicio 4</a></li>
-            <li><a href="/pages/semana-4/ejercicio-5.html">Ejercicio 5</a></li>
-            <li><a href="/pages/semana-4/ejercicio-6.html">Ejercicio 6</a></li>
-            <li><a href="/pages/semana-4/ejercicio-7.html">Ejercicio 7</a></li>
-            <li><a href="/pages/semana-4/ejercicio-8.html">Ejercicio 8</a></li>
-            <li><a href="/pages/semana-4/ejercicio-9.html">Ejercicio 9</a></li>
-            <li><a href="/pages/semana-4/ejercicio-10.html">Ejercicio 10</a></li>
-            <li><a href="/pages/semana-4/ejercicio-11.html">Ejercicio 11</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-8.html">Ejercicio 8</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-9.html">Ejercicio 9</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-10.html">Ejercicio 10</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-11.html">Ejercicio 11</a></li>
         </ul>
     </section>
     <section class="grid__col--span-4">
         <span class="text-subtitle-1" style="color: transparent;">.</span>
         <ul>
-            <li><a href="/pages/semana-4/ejercicio-12.html">Ejercicio 12</a></li>
-            <li><a href="/pages/semana-4/ejercicio-13.html">Ejercicio 13</a></li>
-            <li><a href="/pages/semana-4/ejercicio-14.html">Ejercicio 14</a></li>
-            <li><a href="/pages/semana-4/ejercicio-15.html">Ejercicio 15</a></li>
-            <li><a href="/pages/semana-4/ejercicio-16.html">Ejercicio 16</a></li>
-            <li><a href="/pages/semana-4/ejercicio-17.html">Ejercicio 17</a></li>
-            <li><a href="/pages/semana-4/ejercicio-18.html">Ejercicio 18</a></li>
-            <li><a href="/pages/semana-4/ejercicio-19.html">Ejercicio 19</a></li>
-            <li><a href="/pages/semana-4/ejercicio-20.html">Ejercicio 20</a></li>
-            <li><a href="/pages/semana-4/ejercicio-21.html">Ejercicio 21</a></li>
-            <li><a href="/pages/semana-4/ejercicio-22.html">Ejercicio 22</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-12.html">Ejercicio 12</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-13.html">Ejercicio 13</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-14.html">Ejercicio 14</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-15.html">Ejercicio 15</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-16.html">Ejercicio 16</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-17.html">Ejercicio 17</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-18.html">Ejercicio 18</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-19.html">Ejercicio 19</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-20.html">Ejercicio 20</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-21.html">Ejercicio 21</a></li>
+            <li><a href="/guia-pc/pages/semana-4/ejercicio-22.html">Ejercicio 22</a></li>
         </ul>
     </section>
     <section class="grid__col--span-4">
         <span class="text-subtitle-1">Semana 5</span>
         <ul>
-            <li><a href="/pages/semana-5/ejercicio-1.html">Ejercicio 1</a></li>
-            <li><a href="/pages/semana-5/ejercicio-2.html">Ejercicio 2</a></li>
-            <li><a href="/pages/semana-5/ejercicio-3.html">Ejercicio 3</a></li>
-            <li><a href="/pages/semana-5/ejercicio-4.html">Ejercicio 4</a></li>
-            <li><a href="/pages/semana-5/ejercicio-5.html">Ejercicio 5</a></li>
-            <li><a href="/pages/semana-5/ejercicio-6.html">Ejercicio 6</a></li>
-            <li><a href="/pages/semana-5/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/guia-pc/pages/semana-5/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/guia-pc/pages/semana-5/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/guia-pc/pages/semana-5/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/guia-pc/pages/semana-5/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/guia-pc/pages/semana-5/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/guia-pc/pages/semana-5/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/guia-pc/pages/semana-5/ejercicio-7.html">Ejercicio 7</a></li>
         </ul>
     </section>
     <section class="grid__col--span-4">
         <span class="text-subtitle-1">Semana 6</span>
         <ul>
-            <li><a href="/pages/semana-6/ejercicio-1.html">Ejercicio 1</a></li>
-            <li><a href="/pages/semana-6/ejercicio-2.html">Ejercicio 2</a></li>
-            <li><a href="/pages/semana-6/ejercicio-3.html">Ejercicio 3</a></li>
-            <li><a href="/pages/semana-6/ejercicio-4.html">Ejercicio 4</a></li>
-            <li><a href="/pages/semana-6/ejercicio-5.html">Ejercicio 5</a></li>
-            <li><a href="/pages/semana-6/ejercicio-6.html">Ejercicio 6</a></li>
-            <li><a href="/pages/semana-6/ejercicio-7.html">Ejercicio 7</a></li>
-            <li><a href="/pages/semana-6/ejercicio-8.html">Ejercicio 8</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/guia-pc/pages/semana-6/ejercicio-8.html">Ejercicio 8</a></li>
         </ul>
     </section>
 </footer>
