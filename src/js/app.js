@@ -2,11 +2,70 @@
     'use strict';
 
     // Creamos elementos reutilizables usando Elementos Personalizados y Shadow DOM.
+    function generateElementTemplate(name, templateName) {
+        customElements.define(name, class extends HTMLElement {
+            constructor() {
+                super();
+
+                // Adjuntamos un shadow root al elemento.
+                let shadowRoot = this.attachShadow({mode: 'open'});
+                shadowRoot.appendChild(templateName.content.cloneNode(true));
+            }
+        });
+    }
+
+    function generateSnackbar(label, actionLabel, autoDismissDelay) {
+        if (document.querySelector('.mdc-snackbar')) return;
+
+        let snackbarTemplate = document.createElement('template');
+        const snackbarHTML = `
+<div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface">
+        <div class="mdc-snackbar__label" role="status" aria-live="polite">
+            ${label}
+        </div>
+        <div class="mdc-snackbar__actions">
+            <button type="button" class="button mdc-snackbar__action">
+                <div class="mdc-button__label">
+                    ${actionLabel}
+                </div>
+            </button>
+            <!-- <button class="mdc-icon-button mdc-snackbar__dismiss material-icons" title="Descartar">close</button> -->
+        </div>
+    </div>
+</div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', snackbarHTML);
+        const snackbar = document.querySelector('.mdc-snackbar'),
+            closeButton = document.querySelector('.mdc-snackbar__action');
+
+        function removeSnackbar() {
+            snackbar.classList.remove('mdc-snackbar--open');
+            snackbar.classList.add('mdc-snackbar--closing');
+
+            snackbar.addEventListener('transitionend', function() {
+                snackbar.remove();
+            });
+        }
+
+        setTimeout(function showSnackBar() {
+            snackbar.classList.add('mdc-snackbar--opening', 'mdc-snackbar--open');
+            snackbar.addEventListener('transitionend', function() {
+                snackbar.classList.remove('mdc-snackbar--opening');
+            });
+
+            setTimeout(removeSnackbar, autoDismissDelay || 5000);
+        }, 50);
+
+        closeButton.addEventListener('click', removeSnackbar);
+    }
+
     function addTemplates() {
-        let navBarTemplate = document.createElement('template'),
+        let appbarTemplate = document.createElement('template'),
             footerTemplate = document.createElement('template');
 
-        navBarTemplate.innerHTML = `<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        appbarTemplate.innerHTML = `<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
 .top-app-bar {
     animation: app-bar-slide-in 500ms var(--motion-easing-standard);
@@ -234,16 +293,24 @@
         <section class="top-app-bar__section top-app-bar__section--align-end" role="toolbar">
             <ul>
                 <li>
-                    <a class="button" href="#" title="Home" tooltip-text="Inicio" tooltip-position="bottom h-centered"><span class="material-icons">home</span><span class="visually-hidden">Inicio</span></a>
+                    <a class="button" href="https://tw0b1t5.github.io/guia-pc/pages/index.html" tooltip-text="Inicio" tooltip-position="bottom h-centered"><span class="material-icons">home</span><span class="visually-hidden">Inicio</span></a>
                 </li>
                 <li>
-                    <a class="button" href="#" title="Unidades" tooltip-text="Unidades" tooltip-position="bottom h-centered"><span class="material-icons">menu_book</span><span class="visually-hidden">Unidades</span></a>
+                    <a class="button" href="#" tooltip-text="Unidades" tooltip-position="bottom h-centered"><span class="material-icons">menu_book</span><span class="visually-hidden">Unidades</span></a>
                 </li>
                 <li>
-                    <a class="button" href="#" title="Doná" tooltip-text="Doná" tooltip-position="bottom h-centered"><span class="material-icons">volunteer_activism</span><span class="visually-hidden">Doná</span></a>
+                    <a class="button" href="#" tooltip-text="Doná" tooltip-position="bottom h-centered"><span class="material-icons">volunteer_activism</span><span class="visually-hidden">Doná</span></a>
                 </li>
                 <li>
-                    <a class="button" href="#" title="Contacto" tooltip-text="Contacto" tooltip-position="bottom" style="--x: -84px;"><span class="material-icons">call</span><span class="visually-hidden">Contacto</span></a>
+                    <a class="button" href="#" tooltip-text="Contacto" tooltip-position="bottom h-centered" style="--x: -12px;"><span class="material-icons">call</span><span class="visually-hidden">Contacto</span></a>
+                </li>
+                <li>
+                    <a class="button" href="https://github.com/tw0b1t5/guia-pc/tree/main" target="_blank" tooltip-text="Ver en Github" tooltip-position="bottom" style="--x: -124px;">
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 96" class="material-icons">
+                            <path d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor"/>
+                        </svg>
+                        <span class="visually-hidden">Ver en Github</span>
+                    </a>
                 </li>
             </ul>
         </section>
@@ -251,6 +318,114 @@
 </header>
         `;
         footerTemplate.innerHTML = `<style>
+.grid {
+    display: grid;
+    gap: var(--grid-gutter);
+    grid-template-columns: repeat(12, minmax(5px, 1fr));
+    max-width: 2280px;
+}
+
+main.grid.grid__padding {
+    margin-top: var(--app-bar-dense-height);
+}
+
+.grid .grid__col--span-0 {
+    display: none;
+}
+
+.grid :is(.grid__col--span-1,
+.grid__col--span-2,
+.grid__col--span-3,
+.grid__col--span-4,
+.grid__col--span-5,
+.grid__col--span-6,
+.grid__col--span-7,
+.grid__col--span-8,
+.grid__col--span-9,
+.grid__col--span-10,
+.grid__col--span-11,
+.grid__col--span-12) {
+    grid-column-end: span 12;
+}
+
+@media only screen and (min-width: 576px) {
+    .grid .grid__col--span-1 {
+        grid-column-end: span 1;
+    }
+
+    .grid .grid__col--span-2 {
+        grid-column-end: span 2;
+    }
+
+    .grid .grid__col--span-3 {
+        grid-column-end: span 3;
+    }
+
+    .grid .grid__col--span-4 {
+        grid-column-end: span 4;
+    }
+
+    .grid .grid__col--span-5 {
+        grid-column-end: span 5;
+    }
+
+    .grid .grid__col--span-6 {
+        grid-column-end: span 6;
+    }
+
+    .grid .grid__col--span-7 {
+        grid-column-end: span 7;
+    }
+
+    .grid .grid__col--span-8 {
+        grid-column-end: span 8;
+    }
+
+    .grid .grid__col--span-9 {
+        grid-column-end: span 9;
+    }
+
+    .grid .grid__col--span-10 {
+        grid-column-end: span 10;
+    }
+
+    .grid .grid__col--span-11 {
+        grid-column-end: span 11;
+    }
+
+    .grid .grid__col--span-12 {
+        grid-column-end: span 12;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    :root {
+        --grid-gutter: var(--grid-gutter-small);
+        --breakpoint: var(--breakpoint-small);
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    :root {
+        --grid-gutter: var(--grid-gutter-medium);
+        --breakpoint: var(--breakpoint-medium);
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    :root {
+        --grid-gutter: var(--grid-gutter-large);
+        --breakpoint: var(--breakpoint-large);
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    :root {
+        --grid-gutter: var(--grid-gutter-extra-large);
+        --breakpoint: var(--breakpoint-extra-large);
+    }
+}
+
 footer {
     background-color: var(--elevation-1dp-background-color);
     padding: var(--grid-gutter);
@@ -290,77 +465,141 @@ footer p {
 .footer-socials-list svg {
     fill: var(--theme-on-background);
 }
-</style>
-<footer class="grid">
-    <section class="grid__col--span-12">
-        <div class="footer-socials">
-            Síguenos en:
-            <ul class="footer-socials-list">
-                <li>
-                    <a href="https://www.facebook.com/juniorenargentina/" target="_blank" title="Facebook">
-                        <svg id="social-facebook" viewBox="0 0 18 18" height="18" width="18">
-                            <path d="M15.7,1.5H2.3c-0.5,0-0.8,0.4-0.8,0.8v13.3c0,0.5,0.4,0.8,0.8,0.8h7.2v-5.8h-2V8.4h2V6.8c0-1.9,1.2-3,2.9-3 c0.8,0,1.5,0.1,1.7,0.1v2l-1.2,0c-0.9,0-1.1,0.4-1.1,1.1v1.4h2.2l-0.3,2.3h-1.9v5.8h3.8c0.5,0,0.8-0.4,0.8-0.8V2.3 C16.5,1.9,16.1,1.5,15.7,1.5z"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/juniorenarg" target="_blank" title="Twitter">
-                        <svg id="social-twitter" viewBox="0 0 18 18" height="18" width="18">
-                            <path d="M16.5,4.3c-0.6,0.2-1.1,0.4-1.8,0.5c0.6-0.4,1.1-1,1.4-1.7c-0.6,0.4-1.3,0.6-2,0.8c-0.6-0.6-1.4-1-2.2-1 c-1.7,0-3.1,1.4-3.1,3.1c0,0.2,0,0.5,0.1,0.7C6.3,6.5,4.1,5.3,2.5,3.4C2.3,3.9,2.1,4.4,2.1,5c0,1.1,0.5,2,1.4,2.6 c-0.5,0-1-0.2-1.4-0.4c0,0,0,0,0,0c0,1.5,1.1,2.8,2.5,3.1c-0.3,0.1-0.5,0.1-0.8,0.1c-0.2,0-0.4,0-0.6-0.1c0.4,1.2,1.5,2.1,2.9,2.2 c-1.1,0.8-2.4,1.3-3.8,1.3c-0.2,0-0.5,0-0.7,0c1.4,0.9,3,1.4,4.7,1.4c5.7,0,8.8-4.7,8.8-8.9c0-0.1,0-0.3,0-0.4 C15.6,5.5,16.1,4.9,16.5,4.3"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/@juniorenargentina" target="_blank" title="YouTube">
-                        <svg id="social-youtube" viewBox="0 0 18 18" height="18" width="18">
-                            <path d="M7.2,11.6V6.4L12,9.1L7.2,11.6z M17.8,5.3c0,0-0.2-1.2-0.7-1.8c-0.7-0.7-1.4-0.7-1.8-0.8C12.8,2.6,9,2.6,9,2.6 s-3.8,0-6.3,0.2c-0.3,0-1.1,0-1.8,0.8C0.4,4.1,0.2,5.3,0.2,5.3S0,6.8,0,8.2v1.5c0,1.5,0.2,2.9,0.2,2.9s0.2,1.2,0.7,1.8 c0.7,0.7,1.6,0.7,2,0.8c1.4,0.1,5.9,0.2,6.1,0.2c0,0,3.8,0,6.3-0.2c0.3,0,1.1,0,1.8-0.8c0.5-0.5,0.7-1.8,0.7-1.8S18,11.2,18,9.8V8.2 C18,6.8,17.8,5.3,17.8,5.3z"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.linkedin.com/company/juniorenargentina/mycompany/" target="_blank" title="LinkedIn">
-                        <svg id="social-linkedin" viewBox="0 0 18 18" height="18" width="18">
-                            <path d="M15.4,1.5H2.6C2,1.5,1.5,2,1.5,2.6v12.8c0,0.6,0.5,1.1,1.1,1.1h12.8c0.6,0,1.1-0.5,1.1-1.1V2.6C16.5,2,16,1.5,15.4,1.5z M3.8,7.1H6v7.2H3.8V7.1z M4.9,6.1c-0.7,0-1.3-0.6-1.3-1.3c0-0.7,0.6-1.3,1.3-1.3c0.7,0,1.3,0.6,1.3,1.3C6.2,5.6,5.6,6.1,4.9,6.1z M14.5,14.3h-2.3v-3.5c0-0.8,0-1.9-1.2-1.9c-1.2,0-1.4,0.9-1.4,1.8v3.5H7.4V7.1h2.2v1h0c0.3-0.6,1-1.2,2.1-1.2 c2.3,0,2.7,1.5,2.7,3.4V14.3z"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.instagram.com/juniorenargentina/" target="_blank" title="Instagram">
-                        <svg id="social-instagram" viewBox="0 0 18 18" height="18" width="18">
-                            <path d="M9,2.9c2,0,2.2,0,3,0c0.7,0,1.1,0.2,1.4,0.3c0.4,0.1,0.6,0.3,0.9,0.6c0.3,0.3,0.4,0.5,0.6,0.9c0.1,0.3,0.2,0.7,0.3,1.4 c0,0.8,0,1,0,3s0,2.2,0,3c0,0.7-0.2,1.1-0.3,1.4c-0.1,0.4-0.3,0.6-0.6,0.9c-0.3,0.3-0.5,0.4-0.9,0.6c-0.3,0.1-0.7,0.2-1.4,0.3 c-0.8,0-1,0-3,0s-2.2,0-3,0c-0.7,0-1.1-0.2-1.4-0.3c-0.4-0.1-0.6-0.3-0.9-0.6c-0.3-0.3-0.4-0.5-0.6-0.9c-0.1-0.3-0.2-0.7-0.3-1.4 c0-0.8,0-1,0-3s0-2.2,0-3c0-0.7,0.2-1.1,0.3-1.4C3.3,4.2,3.5,4,3.7,3.7C4,3.5,4.2,3.3,4.6,3.2C4.8,3.1,5.2,2.9,6,2.9 C6.8,2.9,7,2.9,9,2.9 M9,1.5c-2,0-2.3,0-3.1,0c-0.8,0-1.3,0.2-1.8,0.3C3.6,2.1,3.2,2.3,2.8,2.8C2.3,3.2,2.1,3.6,1.9,4.1 c-0.2,0.5-0.3,1-0.3,1.8c0,0.8,0,1.1,0,3.1c0,2,0,2.3,0,3.1c0,0.8,0.2,1.3,0.3,1.8c0.2,0.5,0.4,0.9,0.9,1.3c0.4,0.4,0.8,0.7,1.3,0.9 c0.5,0.2,1,0.3,1.8,0.3c0.8,0,1.1,0,3.1,0s2.3,0,3.1,0c0.8,0,1.3-0.2,1.8-0.3c0.5-0.2,0.9-0.4,1.3-0.9c0.4-0.4,0.7-0.8,0.9-1.3 c0.2-0.5,0.3-1,0.3-1.8c0-0.8,0-1.1,0-3.1s0-2.3,0-3.1c0-0.8-0.2-1.3-0.3-1.8c-0.2-0.5-0.4-0.9-0.9-1.3c-0.4-0.4-0.8-0.7-1.3-0.9 c-0.5-0.2-1-0.3-1.8-0.3C11.3,1.5,11,1.5,9,1.5L9,1.5z"></path>
-                            <path d="M9,5.1C6.9,5.1,5.1,6.9,5.1,9s1.7,3.9,3.9,3.9s3.9-1.7,3.9-3.9S11.1,5.1,9,5.1z M9,11.5c-1.4,0-2.5-1.1-2.5-2.5 S7.6,6.5,9,6.5s2.5,1.1,2.5,2.5S10.4,11.5,9,11.5z"></path>
-                            <circle cx="13" cy="5" r="0.9"></circle>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+.text-on-background {
+    color: var(--theme-on-background);
+}
+
+.text-primary {
+    color: var(--theme-primary-on-background);
+}
+
+footer ul {
+    list-style: none;
+    margin: 1em 0 0 0;
+    padding: 0;
+}
+
+footer li {
+    line-height: 2;
+}
+
+footer a {
+    color: var(--theme-secondary-on-background);
+    font: 400 .75rem/1.25rem var(--theme-font-secondary);
+    text-decoration: none;
+}</style>
+<footer class="grid text-primary">
+    <section class="grid__col--span-4">
+        <span class="text-subtitle-1">Semana 1</span>
+        <ul>
+            <li><a href="/pages/semana-1/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/pages/semana-1/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/pages/semana-1/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/pages/semana-1/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/pages/semana-1/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/pages/semana-1/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/pages/semana-1/ejercicio-7.html">Ejercicio 7</a></li>
+        </ul>
     </section>
-    <hr class="grid__col--span-12">
-    <section class="grid__col--span-12">
-        <p class="text-body-2 text-secondary">Conocé nuestra <a href="https://junior.org.ar/politica-de-privacidad/" target="_blank">Política de privacidad</a> | ©2022 Junior Achievement Argentina. Todos los derechos reservados.</a>
+    <section class="grid__col--span-4">
+        <span class="text-subtitle-1">Semana 2</span>
+        <ul>
+            <li><a href="/pages/semana-2/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/pages/semana-2/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/pages/semana-2/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/pages/semana-2/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/pages/semana-2/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/pages/semana-2/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/pages/semana-2/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/pages/semana-2/ejercicio-8.html">Ejercicio 8</a></li>
+            <li><a href="/pages/semana-2/ejercicio-9.html">Ejercicio 9</a></li>
+            <li><a href="/pages/semana-2/ejercicio-10.html">Ejercicio 10</a></li>
+            <li><a href="/pages/semana-2/ejercicio-11.html">Ejercicio 11</a></li>
+            <li><a href="/pages/semana-2/ejercicio-12.html">Ejercicio 12</a></li>
+        </ul>
+    </section>
+    <section class="grid__col--span-4">
+        <span class="text-subtitle-1">Semana 3</span>
+        <ul>
+            <li><a href="/pages/semana-3/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/pages/semana-3/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/pages/semana-3/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/pages/semana-3/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/pages/semana-3/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/pages/semana-3/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/pages/semana-3/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/pages/semana-3/ejercicio-8.html">Ejercicio 8</a></li>
+            <li><a href="/pages/semana-3/ejercicio-9.html">Ejercicio 9</a></li>
+            <li><a href="/pages/semana-3/ejercicio-10.html">Ejercicio 10</a></li>
+            <li><a href="/pages/semana-3/ejercicio-11.html">Ejercicio 11</a></li>
+            <li><a href="/pages/semana-3/ejercicio-12.html">Ejercicio 12</a></li>
+            <li><a href="/pages/semana-3/ejercicio-13.html">Ejercicio 13</a></li>
+            <li><a href="/pages/semana-3/ejercicio-14.html">Ejercicio 14</a></li>
+        </ul>
+    </section>
+    <section class="grid__col--span-4">
+        <span class="text-subtitle-1">Semana 4</span>
+        <ul>
+            <li><a href="/pages/semana-4/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/pages/semana-4/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/pages/semana-4/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/pages/semana-4/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/pages/semana-4/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/pages/semana-4/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/pages/semana-4/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/pages/semana-4/ejercicio-8.html">Ejercicio 8</a></li>
+            <li><a href="/pages/semana-4/ejercicio-9.html">Ejercicio 9</a></li>
+            <li><a href="/pages/semana-4/ejercicio-10.html">Ejercicio 10</a></li>
+            <li><a href="/pages/semana-4/ejercicio-11.html">Ejercicio 11</a></li>
+        </ul>
+    </section>
+    <section class="grid__col--span-4">
+        <span class="text-subtitle-1" style="color: transparent;">.</span>
+        <ul>
+            <li><a href="/pages/semana-4/ejercicio-12.html">Ejercicio 12</a></li>
+            <li><a href="/pages/semana-4/ejercicio-13.html">Ejercicio 13</a></li>
+            <li><a href="/pages/semana-4/ejercicio-14.html">Ejercicio 14</a></li>
+            <li><a href="/pages/semana-4/ejercicio-15.html">Ejercicio 15</a></li>
+            <li><a href="/pages/semana-4/ejercicio-16.html">Ejercicio 16</a></li>
+            <li><a href="/pages/semana-4/ejercicio-17.html">Ejercicio 17</a></li>
+            <li><a href="/pages/semana-4/ejercicio-18.html">Ejercicio 18</a></li>
+            <li><a href="/pages/semana-4/ejercicio-19.html">Ejercicio 19</a></li>
+            <li><a href="/pages/semana-4/ejercicio-20.html">Ejercicio 20</a></li>
+            <li><a href="/pages/semana-4/ejercicio-21.html">Ejercicio 21</a></li>
+            <li><a href="/pages/semana-4/ejercicio-22.html">Ejercicio 22</a></li>
+        </ul>
+    </section>
+    <section class="grid__col--span-4">
+        <span class="text-subtitle-1">Semana 5</span>
+        <ul>
+            <li><a href="/pages/semana-5/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/pages/semana-5/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/pages/semana-5/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/pages/semana-5/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/pages/semana-5/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/pages/semana-5/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/pages/semana-5/ejercicio-7.html">Ejercicio 7</a></li>
+        </ul>
+    </section>
+    <section class="grid__col--span-4">
+        <span class="text-subtitle-1">Semana 6</span>
+        <ul>
+            <li><a href="/pages/semana-6/ejercicio-1.html">Ejercicio 1</a></li>
+            <li><a href="/pages/semana-6/ejercicio-2.html">Ejercicio 2</a></li>
+            <li><a href="/pages/semana-6/ejercicio-3.html">Ejercicio 3</a></li>
+            <li><a href="/pages/semana-6/ejercicio-4.html">Ejercicio 4</a></li>
+            <li><a href="/pages/semana-6/ejercicio-5.html">Ejercicio 5</a></li>
+            <li><a href="/pages/semana-6/ejercicio-6.html">Ejercicio 6</a></li>
+            <li><a href="/pages/semana-6/ejercicio-7.html">Ejercicio 7</a></li>
+            <li><a href="/pages/semana-6/ejercicio-8.html">Ejercicio 8</a></li>
+        </ul>
     </section>
 </footer>
         `;
 
-        customElements.define('app-bar', class extends HTMLElement {
-            constructor() {
-                super();
-
-                // Adjuntamos un shadow root al elemento.
-                let shadowRoot = this.attachShadow({mode: 'open'});
-                shadowRoot.appendChild(navBarTemplate.content.cloneNode(true));
-            }
-        });
-
-        customElements.define('app-footer', class extends HTMLElement {
-            constructor() {
-                super();
-
-                let shadowRoot = this.attachShadow({mode: 'open'});
-                shadowRoot.appendChild(footerTemplate.content.cloneNode(true));
-            }
-        });
+        generateElementTemplate('app-bar', appbarTemplate);
+        generateElementTemplate('app-footer', footerTemplate);
     }
 
     // Mostramos elementos a medida que el usuario se desplaza hacia ellos.
@@ -419,7 +658,9 @@ footer p {
         }
 
         const targetElement = document.getElementById('py-target') || target,
-              pythonUrl = getPyUrl() || url;
+            pythonUrl = getPyUrl() || url;
+
+        if (!targetElement) return;
 
         fetch(pythonUrl)
             .then(response => response.text())
@@ -455,12 +696,88 @@ footer p {
             codeBlocks.forEach(function addCodeButtons(codeBlock) {
                 const codeButtonsHTML = `
                 <div class="code-buttons-container">
-                    <button class="code-button" id="theme-button" tooltip-text="Cambiar de tema" tooltip-position="left"><span class="material-icons">brightness_6</span><span class="visually-hidden">Cambiar de tema</span></button>
-                    <button class="code-button" id="text-wrap-button" tooltip-text="Alternar ajuste de texto" tooltip-position="left"><span class="material-icons">wrap_text</span><span class="visually-hidden">Alternar ajuste de texto</span></button>
-                    <button class="code-button" id="copy-button" tooltip-text="Copiar código" tooltip-position="left"><span class="material-icons">copy_all</span><span class="visually-hidden">Copiar código</span></button>
+                    <button class="code-button theme-button" tooltip-text="Cambiar de tema" tooltip-position="left"><span class="material-icons">brightness_6</span><span class="visually-hidden">Cambiar de tema</span></button>
+                    <button class="code-button text-wrap-button" tooltip-text="Alternar ajuste de texto" tooltip-position="left"><span class="material-icons">wrap_text</span><span class="visually-hidden">Alternar ajuste de texto</span></button>
+                    <button class="code-button copy-button" tooltip-text="Copiar código" tooltip-position="left"><span class="material-icons">copy_all</span><span class="visually-hidden">Copiar código</span></button>
+                    <button class="code-button comments-button" tooltip-text="Alternar comentarios" tooltip-position="left"><span class="material-icons">numbers</span><span class="visually-hidden">Mostrar/ocultar comentarios</span></button>
                 </div>`;
 
                 codeBlock.insertAdjacentHTML('beforeend', codeButtonsHTML);
+
+                // Si el bloque de código tiene un alto inferior al del menú de botones, entonces
+                // hacemos que dicho menú sea horizontal en vez de vertical. El 32 es un márgen
+                // arbitrario extra.
+                // @todo: Agregar un observador que detecte cambios en la altura del bloque de
+                //        código y actualice el diseño del menú acorde.
+                const buttonsContainer = document.querySelector('.code-buttons-container'),
+                    buttonsMenuHeight = buttonsContainer.offsetHeight,
+                    codeHeight = codeBlock.offsetHeight,
+                    codeButtons = codeBlock.querySelectorAll('.code-button');
+
+                if (codeHeight < buttonsMenuHeight + 32) {
+                    codeBlock.classList.add('is-horizontal');
+
+                    codeButtons.forEach(function(button) {
+                        button.setAttribute('tooltip-position', 'left');
+                    });
+                }
+
+                // Agregamos funcionalidad a los botones:
+                // Este botón cambia el tema del editor cambiando el importe del CSS del mismo.
+                function toggleCodeTheme() {
+                    let codeTheme = document.querySelector('link[name="code-theme"]');
+                    const themeButton = codeBlock.querySelector('.theme-button'),
+                        currentTheme = codeTheme.getAttribute('href');
+
+                    if (currentTheme.includes('felipec')) {
+                        codeTheme.setAttribute('href', currentTheme.replace('felipec', 'atom-one-light'));
+                    } else {
+                        codeTheme.setAttribute('href', currentTheme.replace('atom-one-light', 'felipec'));
+                    }
+                }
+
+                // Este botón activa el ajuste de texto así salta a una nueva línea al irse
+                // mucho a la derecha.
+                function toggleCodeTextWrap() {
+                    if (!codeBlock.classList.contains('has-text-wrap')) {
+                        codeBlock.classList.add('has-text-wrap');
+                    } else {
+                        codeBlock.classList.remove('has-text-wrap');
+                    }
+                }
+
+                // Este botón copia al portapapeles el código en el bloque.
+                async function copyCode() {
+                    const code = codeBlock.innerText.split('brightness_6')[0];
+
+                    await navigator.clipboard.writeText(code);
+
+                    generateSnackbar('Texto copiado al portapapeles.', 'Cerrar');
+                }
+
+                // Este botón alterna la visibilidad de los comentarios (lo iba a hacer
+                // con animación y que borrara y restaurara los comentarios de manera
+                // en que no se pueda copiar los comentarios si fueron borrados, pero
+                // queda mucho espacio en blanco e intentar solucionarlo parece ser más
+                // complicado de lo que pensaba, así que de momento solo quedará como
+                // una simple visualización del código sin los comentarios de por medio
+                // [aunque estos sigan presentes en el DOM]).
+                function toggleCodeComments() {
+                    codeBlock.classList.toggle('hide-comments');
+                }
+
+                const themeButton = codeBlock.querySelector('.code-button.theme-button'),
+                    textWrapButton = codeBlock.querySelector('.code-button.text-wrap-button'),
+                    copyCodeButton = codeBlock.querySelector('.code-button.copy-button'),
+                    commentsButton = codeBlock.querySelector('.code-button.comments-button');
+
+                themeButton.addEventListener('click', toggleCodeTheme);
+                textWrapButton.addEventListener('click', toggleCodeTextWrap);
+                commentsButton.addEventListener('click', toggleCodeComments);
+                copyCodeButton.addEventListener('click', async function() {
+                    await copyCode();
+                });
+
             });
         }
     }

@@ -19,6 +19,7 @@
 ** 3.3. Elevación.
 ** 3.4. Botones.
 ** 3.5. Tooltips.
+** 3.6. Snackbars.
 ** 4. Estilos generales.
 ** 5. Preferencias del usuario.
 */
@@ -46,16 +47,18 @@
     --theme-on-background: #fff;
     --theme-on-surface: #fff;
     --theme-on-error: #000;
-    --theme-text-primary-on-background: rgb(255 255 255 / 87%);
-    --theme-text-primary-on-background-inverse: rgb(0 0 0 / 87%);
-    --theme-text-secondary-on-background: rgb(255 255 255 / 60%);
-    --theme-text-secondary-on-background-inverse: rgb(0 0 0 / 65%);
-    --theme-text-hint-on-background: rgb(255 255 255 / 38%);
-    --theme-text-hint-on-background-inverse: rgb(0 0 0 / 38%);
-    --theme-text-disabled-on-background: rgb(255 255 255 / 38%);
-    --theme-text-disabled-on-background-inverse: rgb(0 0 0 / 38%);
-    --theme-text-icon-on-background: rgb(255 255 255 / 38%);
-    --theme-text-icon-on-background-inverse: rgb(0 0 0 / 38%);
+    --theme-dynamic-color: 255 255 255;
+    --theme-dynamic-color-inverse: 0 0 0;
+    --theme-primary-on-background: rgb(255 255 255 / 87%);
+    --theme-primary-on-background-inverse: rgb(0 0 0 / 87%);
+    --theme-secondary-on-background: rgb(255 255 255 / 60%);
+    --theme-secondary-on-background-inverse: rgb(0 0 0 / 65%);
+    --theme-hint-on-background: rgb(255 255 255 / 38%);
+    --theme-hint-on-background-inverse: rgb(0 0 0 / 38%);
+    --theme-disabled-on-background: rgb(255 255 255 / 38%);
+    --theme-disabled-on-background-inverse: rgb(0 0 0 / 38%);
+    --theme-icon-on-background: rgb(255 255 255 / 38%);
+    --theme-icon-on-background-inverse: rgb(0 0 0 / 38%);
     --theme-border-color: rgb(255 255 255 / 12%);
     --theme-border-color-inverse: rgb(0 0 0 / 12%);
     --theme-font-base: Roboto, Noto, Arial, sans-serif;
@@ -137,7 +140,7 @@ a:visited {
 hr {
     border: none;
     border-top: 1px solid var(--theme-border-color);
-    margin: var(--grid-gutter) 0;
+    margin: clamp(var(--grid-gutter-small), var(--grid-gutter), var(--grid-gutter-extra-large)) 0;
 }
 
 input,
@@ -152,9 +155,39 @@ samp {
     font-family: var(--theme-font-code);
 }
 
+code {
+    background-color: rgb(var(--theme-dynamic-color) / 5%);
+    border: 1px solid rgb(var(--theme-dynamic-color) / 10%);
+    border-radius: .25em;
+    font: 400 .875rem/1.25rem var(--theme-font-code);
+    letter-spacing: .0178571429em;
+    margin-right: .125em;
+    padding: 0 .25em;
+}
+
 pre {
     margin: 0;
     position: relative;
+}
+
+q {
+    color: var(--theme-secondary-on-background);
+    display: inline-block;
+    font-style: italic;
+    margin: var(--grid-gutter-extra-large) 0;
+    quotes: '“' '”' '‘' '’';
+}
+
+q::before {
+    content: open-quote;
+}
+
+q::after {
+    content: close-quote;
+}
+
+q + hr {
+    margin-top: unset;
 }
 
 /* 3. Componentes. */
@@ -321,7 +354,7 @@ main.grid.grid__padding {
 ****/
 /***** Todos lados. *****/
 .grid.grid__padding {
-    padding: var(--grid-gutter);
+    padding: var(--grid-gutter) clamp(var(--grid-gutter-small), var(--grid-gutter), var(--grid-gutter-extra-large));
 }
 
 /***** Sólo lado superior. *****/
@@ -465,7 +498,7 @@ h6 {
 .text-subtitle-1,
 dt {
     color: var(--theme-on-surface);
-    font: 400 1rem/1.75rem var(--theme-font-base);
+    font: 400 1.125rem/1.75rem var(--theme-font-base);
     letter-spacing: .009375em;
 }
 
@@ -517,27 +550,27 @@ figcaption {
 }
 
 .text-primary {
-    color: var(--theme-text-primary-on-background);
+    color: var(--theme-primary-on-background);
 }
 
 .text-primary-inverse {
-    color: var(--theme-text-primary-on-background-inverse);
+    color: var(--theme-primary-on-background-inverse);
 }
 
 .text-secondary {
-    color: var(--theme-text-secondary-on-background);
+    color: var(--theme-secondary-on-background);
 }
 
 .text-secondary-inverse {
-    color: var(--theme-text-secondary-on-background-inverse);
+    color: var(--theme-secondary-on-background-inverse);
 }
 
 .text-disabled {
-    color: var(--theme-text-disabled-on-background);
+    color: var(--theme-disabled-on-background);
 }
 
 .text-disabled-inverse {
-    color: var(--theme-text-disabled-on-background-inverse);
+    color: var(--theme-disabled-on-background-inverse);
 }
 
 /** 3.3 Elevación. **/
@@ -706,6 +739,7 @@ figcaption {
     overflow: hidden;
     overflow-wrap: anywhere;
     padding: 4px 8px;
+    pointer-events: none;
     position: absolute;
     transform: scale(.8) translate(var(--x, 0px), var(--y, 0px));
     transform-origin: var(--dir-x, unset) var(--dir-y);
@@ -766,11 +800,177 @@ figcaption {
     left: 50%;
 }
 
+/** 3.6. Snackbars. **/
+.mdc-snackbar {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    align-items: center;
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    line-height: 2.25rem;
+    margin: 8px;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    z-index: 8;
+}
+
+.mdc-snackbar__surface {
+    align-items: center;
+    background-color: var(--elevation-6dp-background-color);
+    border-radius: 4px;
+    box-shadow: var(--elevation-6dp-box-shadow);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 672px;
+    min-width: 344px;
+    opacity: 0;
+    transform: scale(0.8);
+    z-index: 6;
+}
+
+.mdc-snackbar__label {
+    box-sizing: border-box;
+    color: var(--theme-primary-on-background);
+    flex-grow: 1;
+    font: 400 .875rem/1.25rem var(--theme-font-base);
+    letter-spacing: .0178571429em;
+    margin: 0;
+    padding: 14px 16px;
+}
+
+@media (max-width: 480px), (max-width: 344px) {
+    .mdc-snackbar__surface {
+        min-width: 100%;
+    }
+}
+
+.mdc-snackbar--opening,
+.mdc-snackbar--open,
+.mdc-snackbar--closing {
+    display: flex;
+}
+
+.mdc-snackbar--leading {
+    justify-content: flex-start;
+}
+
+.mdc-snackbar--stacked .mdc-snackbar__surface {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mdc-snackbar--stacked .mdc-snackbar__actions {
+    align-self: flex-end;
+    margin-bottom: 8px;
+}
+
+.mdc-snackbar--open .mdc-snackbar__surface {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 150ms 0ms cubic-bezier(0, 0, .2, 1),
+                transform 150ms 0ms cubic-bezier(0, 0, .2, 1);
+}
+
+.mdc-snackbar--closing .mdc-snackbar__surface {
+    transform: scale(1);
+    transition: opacity 75ms 0ms cubic-bezier(.4, 0, 1, 1);
+}
+
+.mdc-snackbar__actions {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-shrink: 0;
+    margin-left: 0;
+    margin-right: 8px;
+}
+
+.mdc-snackbar__action {
+    background-color: transparent;
+}
+
+.mdc-snackbar__action:not(:disabled) {
+    color: var(--theme-primary);
+}
+
+.mdc-snackbar__action::before {
+    background-color: var(--theme-primary);
+}
+
+.mdc-snackbar__action:hover::before {
+    opacity: .08;
+}
+
+.mdc-snackbar__action:focus::before {
+    transition-duration: 75ms;
+    opacity: .24;
+}
+
+.mdc-snackbar__dismiss {
+    border-radius: 50%;
+    color: var(--theme-on-background);
+    outline: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.mdc-snackbar__dismiss::before {
+    background-color: var(--theme-on-background);
+    bottom: 0;
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.mdc-snackbar__dismiss:hover::before {
+    opacity: .08;
+}
+
+.mdc-snackbar__dismiss:focus::before {
+    transition-duration: 75ms;
+    opacity: .24;
+}
+
+.mdc-snackbar__dismiss.mdc-snackbar__dismiss {
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    height: 36px;
+    padding: 9px;
+    width: 36px;
+}
+
+.mdc-snackbar__dismiss.mdc-snackbar__dismiss svg,
+.mdc-snackbar__dismiss.mdc-snackbar__dismiss img {
+    width: 18px;
+    height: 18px;
+}
+
+.mdc-snackbar__action + .mdc-snackbar__dismiss {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+.snackbar-hero .mdc-snackbar {
+    position: relative;
+}
+
 /* 4. Estilos generales. */
 .visually-hidden {
+    -webkit-clip-path: inset(50%) !important;
     clip: rect(1px,1px,1px,1px) !important;
     border: 0 !important;
-    -webkit-clip-path: inset(50%) !important;
     clip-path: inset(50%) !important;
     height: 1px !important;
     margin: -1px !important;
@@ -814,6 +1014,10 @@ figcaption {
     width: .5em;
 }
 
+h1:not(.intro-header) {
+    margin-left: -6px;
+}
+
 @keyframes cursor-blink {
     50% {
         opacity: 1;
@@ -823,6 +1027,26 @@ figcaption {
 pre code.hljs {
     padding-right: 5em !important;
     position: relative;
+    overflow-y: hidden;
+}
+
+pre code.hljs.is-horizontal {
+    padding-right: 15em !important;
+    overflow: hidden;
+}
+
+pre code.hljs.has-text-wrap {
+    white-space: pre-wrap;
+}
+
+pre code.hljs .hljs-comment {
+    opacity: 1;
+    transition: opacity 400ms;
+}
+
+pre code.hljs.hide-comments .hljs-comment {
+    opacity: 0;
+    transition: opacity 200ms;
 }
 
 .code-buttons-container {
@@ -836,6 +1060,10 @@ pre code.hljs {
     top: 1em;
     right: 1em;
     z-index: 6;
+}
+
+.is-horizontal .code-buttons-container {
+    flex-direction: row;
 }
 
 .code-button {
@@ -859,6 +1087,19 @@ pre code.hljs {
 
 .code-button:not(:first-child) {
     border-top: 1px solid var(--theme-border-color);
+}
+
+.is-horizontal .code-button:first-child {
+    border-radius: 50% 0 0 50%;
+}
+
+.is-horizontal .code-button:last-child {
+    border-radius: 0 50% 50% 0;
+}
+
+.is-horizontal .code-button:not(:first-child) {
+    border-top: none;
+    border-left: 1px solid var(--theme-border-color);
 }
 
 .code-button svg {
