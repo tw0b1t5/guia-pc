@@ -132,7 +132,13 @@
                 // Si no se encuentra un elemento con el atributo o dicho atributo no tiene
                 // ningún valor, vamos a la carpeta de Python y devolvemos el archivo de la
                 // semana y ejercicio actual.
-                return location.href.replace('/pages', '/src/python').replace('html', 'py');
+                let pyUrl = location.href.replace('/pages', '/src/python');
+
+                if (pyUrl.includes('.html')) {
+                    return pyUrl.replace('html', 'py');
+                } else {
+                    return pyUrl + '.py';
+                }
             }
         }
 
