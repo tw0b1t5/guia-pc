@@ -1,0 +1,233 @@
+html,
+body {
+    align-items: center;
+    color-scheme: dark;
+    display: flex;
+    min-height: 100%;
+    font-family: Roboto, Arial, sans-serif;
+    justify-content: center;
+}
+
+.container {
+    --color-red: 239 154 154;
+    --color-pink: 244 143 177;
+    --color-purple: 206 147 216;
+    --color-deep-purple: 179 157 219;
+    --color-indigo: 159 168 218;
+    --color-blue: 144 202 249;
+    --color-light-blue: 129 212 250;
+    --color-cyan: 128 222 234;
+    --color-teal: 128 203 196;
+    --color-green: 165 214 167;
+    --color-light-green: 197 225 165;
+    --color-lime: 230 238 156;
+    --color-yellow: 255 245 157;
+    --color-amber: 255 224 130;
+    --color-orange: 255 204 128;
+    --color-deep-orange: 255 171 145;
+    --color-brown: 188 170 164;
+    --color-grey: 238 238 238;
+    --color-blue-grey: 176 190 197;
+    --color-primary: #4ea6ff;
+    --color-secondary: #ff8a65;
+    --color-background: #000;
+    --size-factor: 1;
+    --node-border-width: calc(.125rem * var(--size-factor));
+    --node-font-size: calc(1rem * var(--size-factor));
+    --node-size: calc(2rem * var(--size-factor));
+    --stroke-height: calc(.125rem * var(--size-factor));
+    --stroke-width: calc(2rem * var(--size-factor));
+    --position: calc(var(--node-size) + var(--node-border-width) * 2 + var(--stroke-width));
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    padding-left: calc(var(--node-size) * 3);
+    padding-right: calc(var(--node-size) * 0);
+    width: calc(var(--position) * 7);
+}
+
+.title {
+    opacity: .6;
+    text-orientation: mixed;
+    text-transform: uppercase;
+    transform: rotate(-145deg);
+    writing-mode: vertical-lr;
+}
+
+.subtitle {
+    font-size: 85%;
+    opacity: .6;
+    text-transform: initial;
+}
+
+.map-container {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: var(--stroke-width);
+    justify-content: center;
+    padding: 6rem 0 2rem;
+}
+
+.chapter {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font: 400 var(--node-font-size)/1 Roboto, Arial, sans-serif;
+    /* This gap separates each node by the stroke's width. */
+    gap: var(--stroke-width);
+    justify-content: center;
+    z-index: 1;
+}
+
+.chapter:nth-child(even) {
+    flex-direction: column-reverse;
+}
+
+.episode {
+    align-items: center;
+    background-color: var(--color-background);
+    border: var(--node-border-width) solid currentColor;
+    border-radius: 50%;
+    box-sizing: content-box;
+    color: var(--color-primary);
+    display: flex;
+    height: var(--node-size);
+    justify-content: center;
+    outline: none;
+    padding: 0;
+    position: relative;
+    text-decoration: none;
+    width: var(--node-size);
+}
+
+.episode::selection {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+}
+
+.episode::before {
+    background-color: var(--color-primary);
+    border-radius: inherit;
+    content: '';
+    height: 100%;
+    opacity: .12;
+    pointer-events: none;
+    position: absolute;
+    transform: scale(0);
+    transition: transform 200ms ease-in,
+        opacity 15ms;
+    width: 100%;
+    z-index: -1;
+}
+
+.episode:hover::before {
+    transform: scale(2);
+    transition: transform 300ms ease-out;
+}
+
+.episode:focus::before {
+    opacity: .24;
+    transform: scale(2.5);
+    transition: transform 200ms ease-out;
+}
+
+/* Fixing chapters' positions so they end where the next one starts. */
+.chapter:nth-child(1) {
+    transform: translateY(calc(var(--position) * 5));
+}
+
+.chapter:nth-child(4),
+.chapter:nth-child(5) {
+    transform: translateY(calc(var(--position) * 1));
+}
+
+.chapter:nth-child(6),
+.chapter:nth-child(7) {
+    transform: translateY(calc(var(--position) * 3));
+}
+
+.chapter:nth-child(8) {
+    transform: translateY(calc(var(--position) * -1));
+}
+
+/*
+** Setting up primary and secondary colors for the nodes. While the
+** primary is used in every node, the secondary color is used for
+** the line that connects between each chapter so the transition is
+** from the current chapter's color to the next one's. That also
+** means that the primary color of the next chapter is the
+** secondary one of the the previous'.
+**/
+.chapter:nth-child(1) .episode {
+    --color-primary: rgb(var(--color-light-blue));
+    --color-secondary: rgb(var(--color-deep-orange));
+}
+
+.chapter:nth-child(2) .episode {
+    --color-primary: rgb(var(--color-deep-orange));
+    --color-secondary: rgb(var(--color-deep-purple));
+}
+
+.chapter:nth-child(3) .episode {
+    --color-primary: rgb(var(--color-deep-purple));
+    --color-secondary: rgb(var(--color-green));
+}
+
+.chapter:nth-child(4) .episode {
+    --color-primary: rgb(var(--color-green));
+    --color-secondary: rgb(var(--color-red));
+}
+
+.chapter:nth-child(5) .episode {
+    --color-primary: rgb(var(--color-red));
+    --color-secondary: rgb(var(--color-yellow));
+}
+
+.chapter:nth-child(6) .episode {
+    --color-primary: rgb(var(--color-yellow));
+    --color-secondary: rgb(var(--color-teal));
+}
+
+.chapter:nth-child(7) .episode {
+    --color-primary: rgb(var(--color-teal));
+    --color-secondary: rgb(var(--color-pink));
+}
+
+.chapter:nth-child(8) .episode {
+    --color-primary: rgb(var(--color-pink));
+    --color-secondary: rgb(var(--color-blue));
+}
+
+/* Defining general properties for the lines between nodes. */
+.chapter .episode::after {
+    background-color: currentColor;
+    display: inline-block;
+    height: var(--stroke-height);
+    position: absolute;
+    width: var(--stroke-width);
+}
+
+.chapter:nth-child(odd) .episode:not(:last-child)::after {
+    content: '';
+    transform: translateY(calc(var(--stroke-width) + var(--node-border-width))) rotate(90deg);
+}
+
+.chapter:nth-child(even) .episode:not(:last-child)::after {
+    content: '';
+    transform: translateY(calc((var(--stroke-width) + var(--node-border-width)) * -1)) rotate(90deg);
+}
+
+/* Line that connects to the next chapter. */
+.chapter:not(:last-child) .episode:last-child::after {
+    background-image: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-secondary) 50%);
+    content: '';
+    transform: translateX(calc(100% + var(--node-border-width)));
+    width: var(--stroke-width);
+}

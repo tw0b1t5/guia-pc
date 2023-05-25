@@ -1,6 +1,12 @@
 (function() {
     'use strict';
 
+    const url = location.href,
+        week = url.match(/\/semana-(\d+)/),
+        excercise = url.match(/\/ejercicio-(\d+)/),
+        weekNumber = week && week[1] ? parseInt(week[1]) : null,
+        excerciseNumber = excercise && excercise[1] ? parseInt(excercise[1]) : null;
+
     function generateSnackbar(label, actionLabel, autoDismissDelay) {
         if (document.querySelector('.mdc-snackbar')) return;
 
@@ -127,12 +133,12 @@
                 // archivo Python cuyo nombre sea el valor del atributo "custom-pysrc".
                 const fileName = targetElement.getAttribute('custom-pysrc');
 
-                return location.href.split('pages')[0] + `src/python/${fileName}.py`;
+                return location.href.split('semana')[0] + `src/python/${fileName}.py`;
             } else {
                 // Si no se encuentra un elemento con el atributo o dicho atributo no tiene
                 // ningún valor, vamos a la carpeta de Python y devolvemos el archivo de la
                 // semana y ejercicio actual.
-                let pyUrl = location.href.replace('/pages', '/src/python');
+                let pyUrl = location.href.replace(/\/semana-\d+/, `/src/python/semana-${weekNumber}`);
 
                 if (pyUrl.includes('.html')) {
                     return pyUrl.replace('html', 'py');

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-419">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1-4 | Guía de Pensamiento Computacional</title>
+    <meta name="description" content="Crear otro programa que pida un número y lo guarde en una variable, utilizando el método input.">
+    <meta name="keywords" content="programacion, python, computacion, educacion">
+    <link rel="apple-touch-icon" sizes="180x180" href="../src/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../src/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../src/favicons/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../src/favicons/favicon-16x16.png">
+    <link rel="manifest" href="../src/favicons/site.webmanifest">
+    <link rel="mask-icon" href="../src/favicons/safari-pinned-tab.svg" color="#232754">
+    <link rel="shortcut icon" href="../src/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#232754">
+    <meta name="msapplication-config" content="../src/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#232754">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="../src/css/normalize.min.css">
+    <link rel="stylesheet" href="../src/css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/felipec.min.css" name="code-theme">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <app-bar>Semana 1 / Ejercicio 4</app-bar>
+    <main class="grid grid__padding grid--align-center" will-animate>
+        <div class="grid__col--span-12">
+            <span class="text-overline">Semana 1</span>
+            <h1>Ejercicio 4</h1>
+            <q>Crear otro programa que pida un número y lo guarde en una variable, utilizando el método input.</q>
+            <hr>
+            <p>Acá nos piden hacer un programa que le pida al usuario un número y lo guarde en una variable. Podemos hacer las tareas por separado, pero también se puede hacer todo en una línea:</p>
+            <pre>
+                <code id="py-target"></code>
+            </pre>
+            <p>Acá ya empezamos a aprender más lo que son las <strong>funciones integradas</strong> de Python. Se llaman "integradas" porque ya vienen con el lenguaje y no tenés que crearlas vos mismo primero para que funcionen; y se llaman <strong>funciones</strong> porque son objetos que hacen alguna función por vos. Estas funciones también tienen para pasarles <strong>argumentos</strong>, que básicamente son las cositas que ponés dentro de los paréntesis (por ejemplo, en <code>print('¡Hola!')</code> estoy <strong>invocando</strong> [usando/llamando] la función <code>print()</code> y le paso como argumento la <strong>cadena</strong> [string/texto] <code>¡Hola!</code>). En este caso, vimos las funciones <code>input()</code> e <code>int()</code>:</p>
+            <ul>
+                <li>El <code>input()</code> muestra en pantalla (parecido al <code>print()</code>, el cual también es otra función) el texto que pongas entre paréntesis (que, de ahora en adelante, llamaremos <strong>argumento</strong>), pero a diferencia del <code>print()</code>, el programa deja de avanzar hasta que el usuario ingrese algo (como un texto o números). Esta llamada a la acción es denotada con un cursor titilante al final del texto del <code>input()</code>.</li>
+                <li>El <code>int()</code> transforma otros tipos de datos en <strong>números enteros</strong>. Por ende, si tenés un número decimal (ejemplo: <code>7.55</code>), entonces <code>int()</code> lo va a redondear <strong>para abajo</strong> y cambiar el tipo dato de <code>float()</code> (número con decimales) a <code>int()</code> (número entero). Sabiendo esto, podemos decir que, por ejemplo, <code>int(7.999) = 7</code>.</li>
+            </ul>
+        </div>
+    </main>
+    <app-footer></app-footer>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/languages/python.min.js"></script>
+    <script src="../src/js/ui.js"></script>
+    <script src="../src/js/app.js"></script>
+</body>
+</html>
